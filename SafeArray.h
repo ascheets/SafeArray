@@ -69,7 +69,7 @@ SafeArray <T> :: SafeArray(int initSize)
   p_array = new T[capacity];
 
   //initialize array position
-  currentSize = 0;
+  currentSize = initSize;
 }
 
 //copy ctor implementation
@@ -298,21 +298,10 @@ void SafeArray <T> :: insert(int position, const T& element)
 {
   //cout << "SafeArray insert function called" << endl;
 
-  if(position > capacity){
+  if(position < 0 ||
+     position > currentSize){
     SafeArrayOutOfBoundsException error;
     throw error;
-  }
-
-  //if someone inserts after currentSize, set currentSize = to that position
-  //although previous values might be garbage...
-  //this helps with later push_back functionality
-  if(position > currentSize){
-    cout << "Warning, you are inserting a value into SafeArray at an index " <<
-      "past the last known size of the array. This may result in 'garbage' values " <<
-      "before the index/position you are calling insert with. It is advisable " <<
-      "that you fill your array up to this position with known values before " <<
-      "making this insert call. Call printAll() for demonstration of values." << endl;
-    currentSize = position;
   }
   
   //resize array capacity by one
