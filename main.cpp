@@ -24,7 +24,13 @@ int main()
   SafeArray <string>* s4 = new SafeArray <string> (0);
   cout << s4->getCapacity() << endl;
   cout << s4->size() << endl;
-  s4->insert(3, "string");
+  try{
+    s4->insert(3, "string");
+  }
+  catch(exception& error){
+    cout << error.what() << endl;
+  }
+  
   s4->push_back("cheese");
   s4->printAll();
   
