@@ -20,11 +20,12 @@ class SafeArray
   void push_back(const SafeArray <T>& newArray);
   T pop_back();
   void resize(int newSize);
-  void printAll();
+  void print();
   T& operator[](int pos) const;
   void insert(int position, const T&);
   void insert(int position, const SafeArray <T>& elements);
   T remove(int position);
+  bool removeElement(T element);
   void removeRange(int startIndex, int endIndex);
   
  private:
@@ -268,11 +269,11 @@ int SafeArray <T> :: size() const
   return currentSize;
 }
 
-//printAll function implementation
+//print function implementation
 template <class T>
-void SafeArray <T> :: printAll()
+void SafeArray <T> :: print()
 {
-  //cout << "SafeArray printAll function called" << endl;
+  //cout << "SafeArray print function called" << endl;
 
   if(currentSize == 0)
     cout << "This SafeArray is currently empty" << endl;
@@ -373,6 +374,32 @@ void SafeArray <T> :: removeRange(int startIndex, int endIndex)
   //cout << "SafeArray removeRange function called" << endl;
   for(int i = startIndex; i < endIndex; i++){
     remove(startIndex);
-    //printAll();
+    //print();
   }
+}
+
+//remove by element, all occurrences of that element
+template <class T>
+bool SafeArray <T> :: removeElement(T element)
+{
+    bool retVal = false;
+
+    if(currentSize == 0){
+	SafeArrayOutOfBoundsException error;
+	throw error;
+    }
+
+    for(int i = 0; i < currentSize; i++){
+
+	if(at(i) == element){
+	    remove(i);
+	    retVal = true;
+	}
+    }
+
+
+    //remove last element
+    return retVal;
+    
+
 }
